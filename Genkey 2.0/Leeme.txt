@@ -1,0 +1,100 @@
+ PASO A PRODUCCION
+=================
+
+Para realizar el paso a producción se deben considerar los siguientes ítems:
+
+
+1.- Generación de llaves "publica.pem" y "privada.pem"
+
+Las llaves deben ser generadas por el comercio con su propio generador de llaves o con el generador "genkey.exe" enviado por Transbank.
+
+Obs.: las llaves deben ser generadas en Sistema Operativo Windows.
+
+Se deben enviar el archivo "publica.pem" y el código comercio a los correos: amaldonado@transbank.cl; rcampos@transbank.cl
+
+En el directorio Maestros reemplace el archivo "privada.pem" por el generado por ustedes.
+
+
+2.- Cambie en su archivo de configuración tbk_config.dat los siguientes variables:
+
+IDCOMERCIO = 5970xxxxxxxx
+
+SERVERTRA  = https://webpay.transbank.cl
+           
+PORTTRA    = 443
+
+TBK_KEY_ID =101
+
+MEDCOM         = 1
+
+URLCGITRA      = /cgi-bin/bp_revision.cgi
+
+URLCGIMEDTRA   = /cgi-bin/bp_validacion.cgi
+
+
+"NOTA: No olvide configurar IDCOMERCIO con el código de comercio asignado por Transbank 5970xxxxxxxx"
+
+
+Las siguientes variables NO SE DEBEN MODIFICAR:
+
+PARAMVERIFCOM  = 1
+
+WHITELISTCOM   = ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 0123456789./:=&?_
+
+
+PREFIJO_CONF_TR   = HTML_
+
+
+Las siguientes variables corresponden a sus propias configuraciones, asegúrese que en el servidor de producción no hayan cambiado.
+
+URLCGICOM 
+
+SERVERCOM
+
+PORTCOM = 80 ó 5555
+
+HOST
+
+WPORT
+
+HTML_TR_NORMAL
+
+________________________________________________________________________
+
+
+OBS:      El comercio puede enviar el logotipo de la empresa para ser ingresado en el formulario de pago de Transbank al siguiente correo: amaldonado@transbank.cl; rcampos@transbank.cl
+
+Esto no es requisito para el paso a producción.
+
+Requisitos del logo:
+
+Formato: GIF 
+Dimensiones: 130 x 59 pix.
+
+
+Debes ademas reemplazar la llave TBK_PUBLIC_KEY  por la llave adjunta.
+------------------------------------------------------------------------------------------------
+
+El medio de conexión indica a KCC la forma en la que se comunicará con TBK. 
+Esto se define a través del parámetro MEDCOM que se encuentra ubicado en el archivo tbk_config.dat.
+El valor que este parámetro puede tomar es 1.
+Este parámetro abre un canal SSL (canal de comunicación seguro) entre el comercio y Transbank, por el cual se envían los datos encriptados y en segundo plano generando un token identificador de la transacción que se le envía al tarjeta habiente para su redirección al formulario de pago Webpay.
+Observaciones:
+El parámetro MEDCOM = 1, como se indicó anteriormente, requiere de SSL para su funcionamiento, lo que implica que el comercio pueda establecer una comunicación directa con las IP’s de Transbank al puerto 443 (la url de conexión es https://webpay.transbank.cl)
+Las IP’s de Transbank a las que el comercio debe permitir el tráfico (comercio -> Transbank), son las siguientes:
+o 200.10.14.162
+o 200.10.14.163
+o 200.10.12.162
+o 200.10.12.163
+o 200.10.14.34
+o 200.10.14.177 
+
+Se recomienda filtrar por las IP’s listadas anteriormente el acceso a la cgi tbk_bp_resultado para asegurar que sólo Transbank pueda ejecutarla.
+
+
+
+ 
+
+
+
+

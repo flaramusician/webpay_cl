@@ -1,0 +1,7 @@
+<form action="{% url 'getpaid-new-payment' currency='CLP' %}" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="order" value="{{ object.pk }}">
+  <input type="hidden" name="backend" value="getpaid.backends.webpay">
+  <input type="submit" value="Pay">
+  </div>
+</form>
